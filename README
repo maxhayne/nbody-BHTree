@@ -1,0 +1,7 @@
+To Build:
+g++-10 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
+
+To Run:
+./a.out
+
+Configure number of bodies, mass distribution, etc. in the driver file.
