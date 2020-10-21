@@ -31,79 +31,79 @@ void leapfrog_part2(Body *bodies, int numberOfBodies, double dt) {
 
 int main() {
 
-	// First galaxy parameters
-	int g1bodies = 5000;
-	double g1range = 100000;
-	double g1mass = 100000000;
-	double g1centralmass = 100000000000000;
+// First galaxy parameters
+int g1bodies = 5000;
+double g1range = 100000;
+double g1mass = 100000000;
+double g1centralmass = 100000000000000;
 
-	// Second galaxy parameters
-	int g2bodies = 1000;
-	double g2range = 50000;
-	double g2mass = 100000000;
-	double g2centralmass = 50000000000000;
-	double g2xoffset = 70000;
-	double g2yoffset = 70000;
-	double rg = sqrt((g2xoffset*g2xoffset) + (g2yoffset*g2yoffset));
-	double vg = sqrt(G*g1centralmass/rg);
-	double g2vX = vg * (g2xoffset/rg);
-	double g2vY = vg * (g2yoffset/rg);
+// Second galaxy parameters
+int g2bodies = 1000;
+double g2range = 50000;
+double g2mass = 100000000;
+double g2centralmass = 50000000000000;
+double g2xoffset = 70000;
+double g2yoffset = 70000;
+double rg = sqrt((g2xoffset*g2xoffset) + (g2yoffset*g2yoffset));
+double vg = sqrt(G*g1centralmass/rg);
+double g2vX = vg * (g2xoffset/rg);
+double g2vY = vg * (g2yoffset/rg);
 
-	// Simulation Parameters
-	double dt = 1000; // in seconds
-	double duration = dt*60*40; // in seconds
-	int steps = duration/dt;
+// Simulation Parameters
+double dt = 1000; // in seconds
+double duration = dt*60*40; // in seconds
+int steps = duration/dt;
+int stepsPerFrame = 1;
 
-	int numberOfBodies = g1bodies+g2bodies;
-	Body *bodies = new Body[numberOfBodies];
-	
-	// Keep track of QuadTree bounds
-	double range = g1range+g2range;
-	double xMin = -range/1.3;
-	double yMin = -range/3;
-	double xMax = range;
-	double yMax = range;
+int numberOfBodies = g1bodies+g2bodies;
+Body *bodies = new Body[numberOfBodies];
 
-	// To use for visualization
-	double xMin1 = xMin*2;
-	double yMin1 = yMin*2;
-	double range1 = range*2.5;
+// Keep track of QuadTree bounds
+double range = g1range+g2range;
+double xMin = -range/1.3;
+double yMin = -range/3;
+double xMax = range;
+double yMax = range;
 
-	cout << "Driver is running.\n";
-	cout << "Simulating " << numberOfBodies << " bodies.\n";
-	srand(time(NULL)); // Initiate RNG
+// To use for visualization
+double xMin1 = xMin*2;
+double yMin1 = yMin*2;
+double range1 = range*2.5;
 
-	int i;
-	bodies[0] = new Body(0, 0, g1centralmass, 0, 0);
-	for (i = 1; i < g1bodies; i++) {
-		// generate random x within range
-		double x = g1range/2 - rand() % (int)g1range;
-		// generate random y within range of circular radius
-		double yRange = 2*sqrt(((g1range/2)*(g1range/2)) - (x*x));
-		double y = yRange/2 - rand() % (int)yRange;
-		// find x and y components of velocity
-		double r = sqrt((x*x) + (y*y));
-		double velocity = sqrt(G*g1centralmass/r);
-		double xV = velocity * (x/r);
-		double yV = velocity * (y/r);
-		bodies[i] = new Body(x, y, g1mass, -yV, xV);
-	}
+cout << "Driver is running.\n";
+cout << "Simulating " << numberOfBodies << " bodies.\n";
+srand(time(NULL)); // Initiate RNG
 
-	bodies[i] = new Body(g2xoffset, g2yoffset, g2centralmass, -g2vY, g2vX);
-	for (i = 1; i < g2bodies; i++) {
-		// generate random x within range
-		double x = g2range/2 - rand() % (int)g2range;
-		// generate random y within range of circular radius
-		double yRange = 2*sqrt(((g2range/2)*(g2range/2)) - (x*x));
-		double y = yRange/2 - rand() % (int)yRange;
-		// find x and y components of velocity
-		double r = sqrt((x*x) + (y*y));
-		double velocity = sqrt(G*g2centralmass/r);
-		double xV = velocity * (x/r);
-		double yV = velocity * (y/r);
-		bodies[i] = new Body(x+g2xoffset, y+g2yoffset, g2mass, -yV-g2vY, xV+g2vX);
-	}
+long int i;
+bodies[0] = new Body(0, 0, g1centralmass, 0, 0);
+for (i = 1; i < g1bodies; i++) {
+	// generate random x within range
+	double x = (g1range/2) - rand() % (int)g1range;
+	// generate random y within range of circular radius
+	double yRange = 2*sqrt(((g1range/2)*(g1range/2)) - (x*x)) - 1;
+	double y = (yRange/2) - rand() % (int)yRange;
+	// find x and y components of velocity
+	double r = sqrt((x*x) + (y*y));
+	double velocity = sqrt(G*g1centralmass/r);
+	double xV = velocity * (x/r);
+	double yV = velocity * (y/r);
+	bodies[i] = new Body(x, y, g1mass, -yV, xV);
+}
 
+bodies[i] = new Body(g2xoffset, g2yoffset, g2centralmass, -g2vY, g2vX);
+for (i = 1; i < g2bodies; i++) {
+	// generate random x within range
+	double x = g2range/2 - rand() % (long int)g2range;
+	// generate random y within range of circular radius
+	double yRange = 2*sqrt(((g2range/2)*(g2range/2)) - (x*x)) - 1;
+	double y = yRange/2 - rand() % (long int)yRange;
+	// find x and y components of velocity
+	double r = sqrt((x*x) + (y*y));
+	double velocity = sqrt(G*g2centralmass/r);
+	double xV = velocity * (x/r);
+	double yV = velocity * (y/r);
+	bodies[i] = new Body(x+g2xoffset, y+g2yoffset, g2mass, -yV-g2vY, xV+g2vX);
+}
 
 	QuadTree *root;
 	int start = getTime();
@@ -172,8 +172,7 @@ int main() {
 	} else {
 		datafile << numberOfBodies << "\n";
 		datafile << "2\n"; // for the number of dimensions
-		datafile << dt << "\n";
-		datafile << duration << "\n";
+		datafile << steps/stepsPerFrame << "\n";
 		datafile << xMin1 << "," << yMin1 << "\n";
 		datafile << range1 << "\n";
 		// Writing all masses
@@ -181,7 +180,7 @@ int main() {
 			datafile << bodies[i].mass << "\n";
 		}
 		// Writing all positions
-		for (int i = 0; i < steps; i++) {
+		for (int i = 0; i < steps; i+=stepsPerFrame) {
 			for (int j = 0; j < numberOfBodies; j++) {
 				datafile << bodies[j].locations[i].x << "\t" << bodies[j].locations[i].y << "\n";
 			}
@@ -193,7 +192,122 @@ int main() {
 	cout << "Done.\n";
 }
 
-// This will make a visually appealing galaxy
+// ************************************************************************************************
+
+// Great parameters for the three body problem. Set theta in the QuadTree.h constructor to zero
+/*
+// Simulation Parameters
+double dt = 0.0001; // in seconds
+double duration = dt*60*300000; // in seconds
+int steps = duration/dt;
+int stepsPerFrame = 4000;
+
+int numberOfBodies = 3;
+Body *bodies = new Body[numberOfBodies];
+
+// Keep track of QuadTree bounds
+double range = 100;
+double xMin = -75;
+double yMin = -50;
+double xMax = 25;
+double yMax = 50;
+
+// To use for visualization
+double xMin1 = xMin;
+double yMin1 = yMin;
+double range1 = range;
+
+bodies[0] = new Body(-2, 0, 2/G, 0, -0.5);
+bodies[1] = new Body(2, 0, 2/G, 0, 0.5);
+bodies[2] = new Body(20.2, 0, 2/G, -0.15, 0);
+
+cout << "Driver is running.\n";
+cout << "Simulating " << numberOfBodies << " bodies.\n";
+srand(time(NULL)); // Initiate RNG
+*/
+
+// ************************************************************************************************
+
+// This will create a satisfying galaxy collision between a 5000 body galaxy and a 1000 body galaxy
+/*
+// First galaxy parameters
+int g1bodies = 5000;
+double g1range = 100000;
+double g1mass = 100000000;
+double g1centralmass = 100000000000000;
+
+// Second galaxy parameters
+int g2bodies = 1000;
+double g2range = 50000;
+double g2mass = 100000000;
+double g2centralmass = 50000000000000;
+double g2xoffset = 70000;
+double g2yoffset = 70000;
+double rg = sqrt((g2xoffset*g2xoffset) + (g2yoffset*g2yoffset));
+double vg = sqrt(G*g1centralmass/rg);
+double g2vX = vg * (g2xoffset/rg);
+double g2vY = vg * (g2yoffset/rg);
+
+// Simulation Parameters
+double dt = 1000; // in seconds
+double duration = dt*60*40; // in seconds
+int steps = duration/dt;
+int stepsPerFrame = 1;
+
+int numberOfBodies = g1bodies+g2bodies;
+Body *bodies = new Body[numberOfBodies];
+
+// Keep track of QuadTree bounds
+double range = g1range+g2range;
+double xMin = -range/1.3;
+double yMin = -range/3;
+double xMax = range;
+double yMax = range;
+
+// To use for visualization
+double xMin1 = xMin*2;
+double yMin1 = yMin*2;
+double range1 = range*2.5;
+
+cout << "Driver is running.\n";
+cout << "Simulating " << numberOfBodies << " bodies.\n";
+srand(time(NULL)); // Initiate RNG
+
+long int i;
+bodies[0] = new Body(0, 0, g1centralmass, 0, 0);
+for (i = 1; i < g1bodies; i++) {
+	// generate random x within range
+	double x = (g1range/2) - rand() % (int)g1range;
+	// generate random y within range of circular radius
+	double yRange = 2*sqrt(((g1range/2)*(g1range/2)) - (x*x)) - 1;
+	double y = (yRange/2) - rand() % (int)yRange;
+	// find x and y components of velocity
+	double r = sqrt((x*x) + (y*y));
+	double velocity = sqrt(G*g1centralmass/r);
+	double xV = velocity * (x/r);
+	double yV = velocity * (y/r);
+	bodies[i] = new Body(x, y, g1mass, -yV, xV);
+}
+
+bodies[i] = new Body(g2xoffset, g2yoffset, g2centralmass, -g2vY, g2vX);
+for (i = 1; i < g2bodies; i++) {
+	// generate random x within range
+	double x = g2range/2 - rand() % (long int)g2range;
+	// generate random y within range of circular radius
+	double yRange = 2*sqrt(((g2range/2)*(g2range/2)) - (x*x)) - 1;
+	double y = yRange/2 - rand() % (long int)yRange;
+	// find x and y components of velocity
+	double r = sqrt((x*x) + (y*y));
+	double velocity = sqrt(G*g2centralmass/r);
+	double xV = velocity * (x/r);
+	double yV = velocity * (y/r);
+	bodies[i] = new Body(x+g2xoffset, y+g2yoffset, g2mass, -yV-g2vY, xV+g2vX);
+}
+*/
+
+// ************************************************************************************************
+
+// This will make a single, visually appealing galaxy
 /*
 // Body Parameters
 int numberOfBodies = 5000;
@@ -216,8 +330,9 @@ double range1 = range;
 
 // Simulation Parameters
 double dt = 1000; // in seconds
-double duration = dt*30*20; // in seconds
+double duration = dt*60*20; // in seconds
 int steps = duration/dt;
+int stepsPerFrame = 1;
 
 cout << "Driver is running.\n";
 cout << "Simulating " << numberOfBodies << " bodies.\n";
