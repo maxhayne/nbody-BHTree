@@ -3,13 +3,13 @@ from math import sqrt
 from matplotlib import pyplot as plt 
 from matplotlib import animation
 
-file_name = "nbody.mp4"
+file_name = "NBODY.mp4"
 
-with open("locations.data") as file:
+with open("locations.tsv") as file:
     bodies = int(file.readline())
     dimension = int(file.readline())
     frames = int(file.readline())
-    mins = file.readline().split(',')
+    mins = file.readline().split('\t')
     xMin = float(mins[0])
     yMin = float(mins[1])
     sideLength = float(file.readline().strip())

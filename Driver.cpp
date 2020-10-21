@@ -166,14 +166,14 @@ for (i = 1; i < g2bodies; i++) {
 
 	string body;
 	ofstream datafile;
-	datafile.open("locations.data");
+	datafile.open("locations.tsv");
 	if (!datafile) {
 		cout << "Could not open the data file.\n";
 	} else {
 		datafile << numberOfBodies << "\n";
 		datafile << "2\n"; // for the number of dimensions
 		datafile << steps/stepsPerFrame << "\n";
-		datafile << xMin1 << "," << yMin1 << "\n";
+		datafile << xMin1 << "\t" << yMin1 << "\n";
 		datafile << range1 << "\n";
 		// Writing all masses
 		for (int i = 0; i < numberOfBodies; i++) {
@@ -185,7 +185,7 @@ for (i = 1; i < g2bodies; i++) {
 				datafile << bodies[j].locations[i].x << "\t" << bodies[j].locations[i].y << "\n";
 			}
 		}
-		cout << "Finished writing to 'locations.data'.\n";
+		cout << "Finished writing to 'locations.tsv'.\n";
 	}
 
 	delete [] bodies;
