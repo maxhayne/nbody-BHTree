@@ -9,6 +9,7 @@
 ## To run
 
 > ./a.out
+
 > python animate.py
 
 Configure number of bodies, mass distribution, etc. in the driver file.
