@@ -1,15 +1,15 @@
 ## Build on Mac
 
-g++-10 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
+> g++-10 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
 
 ## Build on Linux
 
-g++ -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
+> g++ -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
 
 ## To run
 
-./a.out
-python animate.py
+> ./a.out
+> python animate.py
 
 Configure number of bodies, mass distribution, etc. in the driver file.
 
