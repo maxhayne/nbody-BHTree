@@ -28,4 +28,4 @@ https://user-images.githubusercontent.com/32202629/166587947-fdbef902-22c5-4d1c-
 
 ### Many-body *galaxy* integration
 
-https://user-images.githubusercontent.com/32202629/166588398-c2e433ee-9a7c-4636-8b4a-df5b1b88e53d.mp4
+https://user-images.githubusercontent.com/32202629/166634755-c86ca09b-599d-41f7-8d2e-0f1c1e761f59.mp4
