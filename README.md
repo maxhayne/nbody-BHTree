@@ -1,10 +1,10 @@
 ## Build on Mac
 
-> g++-11 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
-
 Apple's clang g++ doesn't have support for the '-fopenmp' option, so I've installed the GNU version through homebrew:
 
 > brew install gcc
+
+> g++-11 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
 
 ## Build on Linux
 
