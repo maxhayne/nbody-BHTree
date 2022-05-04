@@ -20,7 +20,7 @@ And then to compile:
 
 Configure number of bodies, mass distribution, etc. in the driver file.
 
-./a.out should produce a data file containing the location histories of all bodies. 'python animate.py' will produce an mp4 file of the simulation.
+*./a.out* should produce a data file containing the location histories of all bodies. *python animate.py* will produce an mp4 file of the simulation.
 
 ### Three-body integration
 
