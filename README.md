@@ -2,7 +2,7 @@
 
 > g++-10 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
 
-Apple's clang g++ doesn't have support for the '-fopenmp' option
+Apple's clang g++ doesn't have support for the '-fopenmp' option.
 
 ## Build on Linux
 
