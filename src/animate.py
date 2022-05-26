@@ -3,13 +3,13 @@ from math import sqrt
 from matplotlib import pyplot as plt 
 from matplotlib import animation
 
-file_name = "NBODY.mp4"
+file_name = "nbody.mp4"
 
 with open("locations.tsv") as file:
     bodies = int(file.readline())
     dimension = int(file.readline())
     frames = int(file.readline())
-    mins = file.readline().split('\t')
+    mins = file.readline().split(',')
     xMin = float(mins[0])
     yMin = float(mins[1])
     sideLength = float(file.readline().strip())
@@ -27,10 +27,7 @@ with open("locations.tsv") as file:
     sub_plot.set_facecolor('white')
     fig.tight_layout(pad=0)
 
-    # The positions of the bodies will be marked by blue circles of size 6
     positions, = sub_plot.plot([], [], 'ko', ms=1, alpha=0.60)
-
-    # Trails will add red points at all the previous locations of the bodies
     trails, = sub_plot.plot([], [], 'k.', ms=1, alpha=0.20)
 
     # Store the history of the bodies
@@ -42,7 +39,7 @@ with open("locations.tsv") as file:
         xPosition = []
         yPosition = []
 
-        print(frame)
+        print(frame, end=', ', flush=True)
 
         # If there are few bodies in the simulation, 
         # also animate each body's trail. Becomes too 
@@ -79,4 +76,4 @@ with open("locations.tsv") as file:
         return positions,
 
     anim = animation.FuncAnimation(fig, update, frames=frames, blit=True)
-    anim.save(file_name, fps=fps, extra_args=['-vcodec', 'libx264'], dpi=300)
+    anim.save(file_name, fps=fps, extra_args=['-vcodec', 'libx265','-crf','24'], dpi=300)
