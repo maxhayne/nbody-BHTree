@@ -9,7 +9,7 @@ with open("locations.tsv") as file:
     bodies = int(file.readline())
     dimension = int(file.readline())
     frames = int(file.readline())
-    mins = file.readline().split(',')
+    mins = file.readline().split()
     xMin = float(mins[0])
     yMin = float(mins[1])
     sideLength = float(file.readline().strip())

@@ -10,6 +10,8 @@
 #include <omp.h>
 using namespace std;
 
+double PI = 3.14159265;
+
 int getTime() {
 	return(std::chrono::duration_cast< std::chrono::milliseconds >(
     std::chrono::system_clock::now().time_since_epoch()).count());
@@ -32,10 +34,10 @@ void leapfrog_part2(Body *bodies, int numberOfBodies, double dt) {
 int main() {
 
 	// First galaxy parameters
-	int g1bodies = 5000;
-	double g1range = 100000;
-	double g1mass = 100000000;
-	double g1centralmass = 100000000000000;
+	int g1bodies = 5000; // Number of bodies in the galaxy
+	double g1range = 100000; // Diameter of galaxy
+	double g1mass = 100000000; // Mass of every orbiting object
+	double g1centralmass = 100000000000000; // Mass of central object in the galaxy
 
 	// Second galaxy parameters
 	int g2bodies = 1000;
@@ -46,8 +48,8 @@ int main() {
 	double g2yoffset = 70000;
 	double rg = sqrt((g2xoffset*g2xoffset) + (g2yoffset*g2yoffset));
 	double vg = sqrt(G*g1centralmass/rg);
-	double g2vX = vg * (g2xoffset/rg);
-	double g2vY = vg * (g2yoffset/rg);
+	double g2vX = vg * (g2xoffset/rg); // Starting x-velocity
+	double g2vY = vg * (g2yoffset/rg); // Starting y-velocity
 
 	// Simulation Parameters
 	double dt = 1000; // in seconds
@@ -77,13 +79,17 @@ int main() {
 	long int i;
 	bodies[0] = new Body(0, 0, g1centralmass, 0, 0);
 	for (i = 1; i < g1bodies; i++) {
-		// generate random x within range
-		double x = (g1range/2) - rand() % (int)g1range;
-		// generate random y within range of circular radius
-		double yRange = 2*sqrt(((g1range/2)*(g1range/2)) - (x*x)) - 1;
-		double y = (yRange/2) - rand() % (int)yRange;
-		// find x and y components of velocity
-		double r = sqrt((x*x) + (y*y));
+		// Generate x and y from a random angle and radius
+		double a = rand() % 90; // angle
+		double r = rand() % ((int)g1range/2); // radius
+		int xneg = rand() % 100; // coin toss to make x negative
+		int yneg = rand() % 100; // coin toss to make y negative
+		double x = r * cos(a*PI/180);
+		double y = r* sin(a*PI/180);
+		if ( xneg >= 50 ) x *= -1;
+		if ( yneg >= 50 ) y *= -1;
+		
+		// Give the body a velocity that is proportional to r
 		double velocity = sqrt(G*g1centralmass/r);
 		double xV = velocity * (x/r);
 		double yV = velocity * (y/r);
@@ -92,13 +98,17 @@ int main() {
 
 	bodies[i] = new Body(g2xoffset, g2yoffset, g2centralmass, -g2vY, g2vX);
 	for (i = 1; i < g2bodies; i++) {
-		// generate random x within range
-		double x = g2range/2 - rand() % (long int)g2range;
-		// generate random y within range of circular radius
-		double yRange = 2*sqrt(((g2range/2)*(g2range/2)) - (x*x)) - 1;
-		double y = yRange/2 - rand() % (long int)yRange;
-		// find x and y components of velocity
-		double r = sqrt((x*x) + (y*y));
+		// Generate x and y from a random angle and radius
+		double a = rand() % 90; // angle
+		double r = rand() % ((int)g2range/2); // radius
+		int xneg = rand() % 100; // coin toss to make x negative
+		int yneg = rand() % 100; // coin toss to make y negative
+		double x = r * cos(a*PI/180);
+		double y = r* sin(a*PI/180);
+		if ( xneg >= 50 ) x *= -1;
+		if ( yneg >= 50 ) y *= -1;
+
+		// Give the body a velocity that is proportional to r
 		double velocity = sqrt(G*g2centralmass/r);
 		double xV = velocity * (x/r);
 		double yV = velocity * (y/r);
