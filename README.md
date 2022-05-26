@@ -6,11 +6,11 @@ Apple's clang g++ doesn't have support for the '-fopenmp' option, so I've instal
 
 And then to compile:
 
-> g++-11 -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
+> g++-11 -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
 
 ## Build on Linux
 
-> g++ -fopenmp -O2 -Wall Driver.cpp QuadTree.cpp
+> g++ -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
 
 ## To run
 
