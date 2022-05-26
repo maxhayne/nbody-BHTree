@@ -16,7 +16,7 @@ And then to compile:
 
 > ./a.out
 
-> python animate.py
+> python3 animate.py
 
 Configure number of bodies, mass distribution, etc. in the driver file.
 
