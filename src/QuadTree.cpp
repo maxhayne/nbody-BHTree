@@ -218,22 +218,22 @@ int QuadTree::countQuadTrees() {
 	
 	if (northwest != NULL) {
 		count++;
-		count += northwest->countNullQuadTrees();
+		count += northwest->countQuadTrees();
 	}
 
 	if (southwest != NULL) {
 		count++;
-		count += southwest->countNullQuadTrees();
+		count += southwest->countQuadTrees();
 	}
 
 	if (southeast != NULL) {
 		count++;
-		count += southeast->countNullQuadTrees();
+		count += southeast->countQuadTrees();
 	}
 
 	if (northeast != NULL) {
 		count++;
-		count += northeast->countNullQuadTrees();
+		count += northeast->countQuadTrees();
 	}
 
 	return count;
