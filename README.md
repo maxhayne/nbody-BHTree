@@ -3,22 +3,22 @@
 Apple's clang g++ doesn't have support for the '-fopenmp' option, so I've installed the GNU version through homebrew:
 
 ~~~console
-$ brew install gcc
+brew install gcc
 ~~~
 
 And then to compile:
 ~~~console
-$ g++-11 -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
+g++-11 -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
 ~~~
 ## on Linux
 ~~~console
-$ g++ -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
+g++ -fopenmp -O3 -Wall Driver.cpp QuadTree.cpp
 ~~~
 
 ## To run
 ~~~console
-$ ./a.out
-$ python3 animate.py
+./a.out
+python3 animate.py
 ~~~
 
 Configure number of bodies, mass distribution, etc. in the driver file.
